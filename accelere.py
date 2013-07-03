@@ -2,20 +2,38 @@
 
 import os
 import sys
+import argparse
 import urllib
 import threading
 import signal
 import time
 import Queue
 
+parser = argparse.ArgumentParser()
+parser.add_argument("-m", "--max", type=int, help="the maximum number of images to keep")
+parser.add_argument("-i", "--interval", type=float, help="the interval between threads")
+parser.add_argument("-t", "--type", help="the type of image to create")
+parser.add_argument("-l", "--location", help="the location from which to retrieve images")
+parser.add_argument("-d", "--directory", help="the storage directory location")
+parser.add_argument("--dev", help="the program runs in development mode")
+args = parser.parse_args()
+
 exit = False
 
 count = 1
-max_images = 1440
-thread_interval = 5.0
-image_url = "http://images.wsdot.wa.gov/nw/525vc00820.jpg"
-image_type = ".jpg"
-storage_dir = "./storage/"
+
+if args.dev == "true":
+    max_images = 1440
+    thread_interval = 5.0
+    image_type = ".jpg"
+    image_url = "http://images.wsdot.wa.gov/nw/525vc00820.jpg"
+    storage_dir = "./storage/"
+else:
+    max_images = args.max
+    thread_interval = args.interval
+    image_type = args.type
+    image_url = args.location
+    storage_dir = args.directory
 
 # Queue to store our timestamps so we know how large to let the window get
 # before we start deleting old images.
