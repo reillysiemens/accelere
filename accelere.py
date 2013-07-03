@@ -22,11 +22,14 @@ exit = False
 
 count = 1
 
+# http://images.wsdot.wa.gov/nw/525vc00820.jpg
+# http://140.160.161.198/axis-cgi/jpg/image.cgi?camera=1&resolution=460x345&compression=0
+
 if args.dev == "true":
-    max_images = 1440
-    thread_interval = 5.0
+    max_images = 28800
+    thread_interval = 3.0
     image_type = ".jpg"
-    image_url = "http://images.wsdot.wa.gov/nw/525vc00820.jpg"
+    image_url = "http://140.160.161.198/axis-cgi/jpg/image.cgi?camera=1&resolution=460x345&compression=0"
     storage_dir = "./storage/"
 else:
     max_images = args.max
