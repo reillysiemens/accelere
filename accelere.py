@@ -39,7 +39,7 @@ interrupted = False
 done = False
 def signal_handler(signum, frame):
     global interrupted
-    print "\rInterrupted, waiting wayward threads.."
+    print "\rInterrupted, waiting for wayward threads.."
     interrupted = True
 signal.signal(signal.SIGINT, signal_handler)
 
