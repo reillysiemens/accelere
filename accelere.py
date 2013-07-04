@@ -82,9 +82,12 @@ if args.lastlocation == True:
 	sys.exit()
 
 #save location to the settings file
-settings_file = open(".accelere", "w")
-settings_file.write(image_url)
-
+try:
+    settings_file = open(".accelere", "w")
+    settings_file.write(image_url)
+    settings_file.close()
+except:
+    print "Error saving location to settings file (does someone else have a lock?)"
 print   "\nAccelere started\n" + \
         "  Image URL:\t"      + image_url + "\n" + \
         "  Max Images:\t"     + str(max_images) + "\n" + \
