@@ -9,7 +9,14 @@ import signal
 import time
 import Queue
 
-parser = argparse.ArgumentParser()
+
+class CleanErrorParser(argparse.ArgumentParser):
+    def error(self, message):
+        sys.stderr.write('error: %s\n' % message)
+        sys.stderr.write('use -h or --help for usage information\n')
+        #self.print_help()
+        sys.exit(2)
+parser = CleanErrorParser()
 parser.add_argument("-m", "--max", 	        type=int, 	help="the maximum number of images to keep",        default=1024)
 parser.add_argument("-i", "--interval",     type=float, help="the interval between threads",                default=60.0)
 parser.add_argument("-t", "--type", 			        help="the type of image to create",                 default=".jpg")
@@ -19,6 +26,14 @@ parser.add_argument("-d", "--directory", 		        help="the storage directory l
 parser.add_argument("--dev", 				            help="the program runs in development mode",        action="store_true")
 parser.add_argument("--dry", 				            help="does not acquire images, only shows debug",   action="store_true")
 args = parser.parse_args()
+
+if len(sys.argv)==1: #if we have no arguments:
+    parser.print_help()
+    sys.exit()
+
+
+
+
 
 interrupted = False
 done = False
