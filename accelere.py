@@ -24,7 +24,7 @@ interrupted = False
 done = False
 def signal_handler(signum, frame):
     global interrupted
-    print "\rInterrupted, cleaning up threads.."
+    print "\rInterrupted, waiting wayward threads.."
     interrupted = True
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -70,7 +70,11 @@ if args.lastlocation == True:
 settings_file = open(".accelere", "w")
 settings_file.write(image_url)
 
-print "image url '" + image_url + "'"
+print   "\nAccelere started\n" + \
+        "  Image URL:\t"      + image_url + "\n" + \
+        "  Max Images:\t"     + str(max_images) + "\n" + \
+        "  Interval:\t"       + str(thread_interval) + "s\n" + \
+        "  Storage Dir\t" + storage_dir + "\n"
 # Queue to store our timestamps so we know how large to let the window get
 # before we start deleting old images.
 q = Queue.Queue(max_images)
